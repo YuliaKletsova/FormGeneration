@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/FormGeneration/static/css/main.1f338d84.css",
+    "main.js": "/FormGeneration/static/js/main.4e44a97f.js",
+    "static/js/787.ad35724e.chunk.js": "/FormGeneration/static/js/787.ad35724e.chunk.js",
+    "index.html": "/FormGeneration/index.html",
+    "main.1f338d84.css.map": "/FormGeneration/static/css/main.1f338d84.css.map",
+    "main.4e44a97f.js.map": "/FormGeneration/static/js/main.4e44a97f.js.map",
+    "787.ad35724e.chunk.js.map": "/FormGeneration/static/js/787.ad35724e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1f338d84.css",
+    "static/js/main.4e44a97f.js"
+  ]
+}
