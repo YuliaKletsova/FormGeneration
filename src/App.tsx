@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 import {AuthorizationForm} from './Components/AuthorizationForm';
-import {ArrEl} from './Components/types';
 
 function App() {
   const initialArray = [
@@ -31,15 +30,16 @@ function App() {
 ]
   const [codeInputValue, setCodeInputValue] = useState(initialArray);
   const handleChange = (e: any) => {
+    e.preventDefault();
     const value = JSON.parse(e.target.value);
-    console.log(value)
     setCodeInputValue(value)
-  }
+  };
 
   return (
     <div className='app'>
       <textarea className="codeInput" onChange={handleChange}>{JSON.stringify(codeInputValue, null, 4)}</textarea>
-      <AuthorizationForm fieldsArray={codeInputValue as ArrEl[]} />
+        {/* @ts-expect-error */}
+      <AuthorizationForm fieldsArray={codeInputValue} />
     </div>
   );
 }
