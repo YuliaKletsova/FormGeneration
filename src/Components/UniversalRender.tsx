@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
-import type {ArrEl, Type} from './types';
+import type {ArrEl, Type} from '../types';
 import './index.css';
 
 import {FormContext} from './FormContext';
+import {RegisterOptions} from 'react-hook-form';
 
 type InputProps = {
     props: ArrEl;
@@ -10,8 +11,13 @@ type InputProps = {
 };
 
 const Input = ({props: {required, label, defaultValue, id}, type}: InputProps) => {
-    // @ts-expect-error
     const {register, errors} = useContext(FormContext);
+
+    if (!register) throw new Error('register function was not provided');
+    if (typeof errors === 'undefined') throw new Error('errors object was not provided');
+
+    const emailPattern = /\S*@\S*\s?/;
+    const passwordPattern = /[A-Za-z]{5}/;
     let inputType = '';
     let maxLength = 21;
     let pattern = null;
@@ -23,19 +29,19 @@ const Input = ({props: {required, label, defaultValue, id}, type}: InputProps) =
             break;
         case ('inputEmail'):
             inputType = "email";
-            pattern = /\S*@\S*\s?/
+            pattern = emailPattern
             break;
         case ('inputPassword'):
             inputType = "password"
             maxLength = 12
-            pattern = /[A-Za-z]{5}/
+            pattern = passwordPattern
             break;
         default:
             inputType = "text"
             break;
     }
 
-    const registerOptions = {
+    const registerOptions: RegisterOptions = {
         required: {
             value: required || false,
             message: 'This field is Required',
@@ -45,8 +51,8 @@ const Input = ({props: {required, label, defaultValue, id}, type}: InputProps) =
             message: 'Max symbols exceeded'
         },
         pattern: {
-            value: pattern,
-            message: 'Password must be 5-12 symbols'
+            value: pattern || /.*/,
+            message: pattern === emailPattern ? 'Bad email, please check your email' :'Password must be 5-12 symbols'
         },
         setValueAs: (v: any) => v || defaultValue
     };
@@ -63,7 +69,7 @@ const Input = ({props: {required, label, defaultValue, id}, type}: InputProps) =
 
     return <div className="inputContainer">
         {!label ? content : <label className="label">{content}{label}</label>}
-        {errors[id] && <span className='errorText'>{errors[id].message}</span>}
+        {errors[id] && <span className='errorText'>{String(errors[id]?.message)}</span>}
     </div>;
 }
 

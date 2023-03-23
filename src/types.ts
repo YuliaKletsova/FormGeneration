@@ -1,4 +1,6 @@
-export type Type = 'inputText' | 'inputPassword' | 'inputEmail';
+import {TYPE} from "./constants";
+
+export type Type = keyof typeof TYPE;
 
 export type ArrEl = {
     id: string;
